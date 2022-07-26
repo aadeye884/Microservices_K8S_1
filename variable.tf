@@ -38,8 +38,8 @@ variable "az_1" {
 variable "az_2" {
   default = "us-east-1b"
 }
-variable "IGW" {
-  default = "internet_gateway"
+variable "igw_name" {
+  default = "IGW"
 }
 variable "public_routetable" {
   default = "public_rt"
@@ -60,7 +60,7 @@ variable "port_all_to" {
   description = "this port allows http access"
 }
 variable "sg_name" {
-  default = ""
+  default = "master_host_sg"
 }
 variable "vpc_id" {
   default = ""

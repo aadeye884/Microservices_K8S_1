@@ -34,7 +34,7 @@ resource "aws_internet_gateway" "IGW" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = var.IGW
+    Name = var.igw_name
   }
 }
 
@@ -45,6 +45,9 @@ resource "aws_route_table" "public_rt" {
   route {
     cidr_block = var.publicroute_cidr
     gateway_id = aws_internet_gateway.IGW.id
+  }
+  tags = {
+    Name = var.public_routetable
   }
 }
 
@@ -81,7 +84,7 @@ resource "aws_security_group" "master_host_sg" {
   }
 
   tags = {
-    Name = "master_host_sg"
+    Name = var.sg_name
   }
 }
 
@@ -100,7 +103,11 @@ resource "aws_instance" "master_host" {
   subnet_id                   = var.public_subnet_n1
   vpc_security_group_ids      = [var.vpc_security_group_ids]
   associate_public_ip_address = var.associate_public_ip_address
-
+  user_data                   = <<-EOF
+  #!/bin/bash
+  sudo apt update -y 
+  sudo hostnamectl set-hostname master
+  EOF
   tags = {
     Name = "master_host"
   }
@@ -115,7 +122,11 @@ resource "aws_instance" "worker1_host" {
   subnet_id                   = var.public_subnet_n1
   vpc_security_group_ids      = [var.vpc_security_group_ids]
   associate_public_ip_address = var.associate_public_ip_address
-
+  user_data                   = <<-EOF
+  #!/bin/bash
+  sudo apt update -y
+  sudo hostnamectl set-hostname worker1
+  EOF
   tags = {
     Name = "worker1_host"
   }
@@ -130,7 +141,11 @@ resource "aws_instance" "worker2_host" {
   subnet_id                   = var.public_subnet_n2
   vpc_security_group_ids      = [var.vpc_security_group_ids]
   associate_public_ip_address = var.associate_public_ip_address
-
+  user_data                   = <<-EOF
+  #!/bin/bash
+  sudo apt update -y
+  sudo hostnamectl set-hostname worker2
+  EOF
   tags = {
     Name = "worker2_host"
   }

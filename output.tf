@@ -22,7 +22,7 @@ output "subnet_id2" {
   value       = aws_subnet.public_subnet2.id
   description = "Public Subnets ID 2"
 }
-output "allSG" {
+output "master_host_sg" {
   value       = aws_security_group.master_host_sg.id
   description = "Master Security Group ID"
 }
