@@ -6,6 +6,7 @@ module "dev_vpc" {
 module "dev_security_group" {
   source  = "../../modules/security_group"
   sg_name = "Kubernetes_sg"
+  sg_name2 = "ansible_sg"
   vpc_id  = module.dev_vpc.vpc-id
 }
 
@@ -16,7 +17,7 @@ module "dev_keypair" {
 
 module "dev_master-node" {
   source                      = "../../modules/master"
-  ami                         = "ami-08d4ac5b634553e16"
+  ami                         = "ami-052efd3df9dad4825"
   instance_type               = "t3.medium"
   vpc_security_group_ids      = module.dev_security_group.allSG
   associate_public_ip_address = true
@@ -45,4 +46,12 @@ module "dev_worker2-node" {
   key_name                    = module.dev_keypair.key_name
   subnet_id2                   = module.dev_vpc.subnet-id2
   az1b                        = "us-east-1b"
+}
+
+module "dev_ansible" {
+    source = "../../modules/ansible_node"
+    vpc_security_group_ids = [module.dev_security_group.AnsibleSG]
+    subnet_id = module.dev_vpc.subnet-id2
+    availability_zone = "us-east-1b"
+    key_name = module.dev_keypair.key_name
 }
