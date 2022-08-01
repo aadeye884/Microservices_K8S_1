@@ -17,6 +17,20 @@ variable "sg_name" {
   default     = ""
 }
 
+variable "sg_name2" {
+  default     = ""
+}
+
 variable "vpc_id" {
   default     = ""
+}
+
+variable "port_ssh" {
+  default     = 22
+  description = "this port allows ssh access"
+}
+
+variable "port_http" {
+  default     = 80
+  description = "this port allows http access"
 }
