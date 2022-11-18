@@ -1,7 +1,7 @@
 # Create Ansible Server  (using Red Hat for ami and t2.micro for instance type)
 resource "aws_instance" "Ansible_node" {
   ami                         = var.ami
-  instance_type               = var.instance_type_t2
+  instance_type               = var.instance_type
   vpc_security_group_ids      = var.vpc_security_group_ids
   subnet_id                   = var.subnet_id
   availability_zone           = var.availability_zone
@@ -9,22 +9,25 @@ resource "aws_instance" "Ansible_node" {
   associate_public_ip_address = var.associate_public_ip_address
   user_data = <<-EOF
 #!/bin/bash
-sudo hostnamectl set-hostname ansible
-sudo apt update -y
-sudo apt-get upgrade -y
-sudo apt install software-properties-common
-sudo apt-add-repository ppa:ansible/ansible
-sudo apt update
-sudo apt install ansible
-sudo apt install sshpass
-sudo chown -R ubuntu:ubuntu /etc/ansible && chmod +x /etc/ansible
-cd /etc/ansible
-touch installation.yaml
-touch cluster.yaml
-touch join.yaml
-touch monitoring.yaml
-touch deployment.yaml
-su - ubuntu -c "ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''"
+sudo apt-get update
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt-get install ansible -y
+sudo chmod -R 700 .ssh/
+sudo chown -R ubuntu:ubuntu .ssh/
+cd ~/.ssh/
+echo "${file(var.keypair)}" >> /.ssh/USTeam1Keypair
+chmod 400 USTeam1Keypair
+cd ~/etc/ansible
+sudo chown -R ubuntu:ubuntu /etc/ansible
+sudo touch installation.yml deployment.yml monitoring.yml
+echo "${file(var.join-gen_yml)}" >> /etc/ansible/cluster.yml
+echo "${file(var.join_yml)}" >> /etc/ansible/join.yml
+echo "${file(var.deployment_yml)}" >> /etc/ansible/deployment.yml
+echo "${file(var.monitoring_yml)}" >> /etc/ansible/monitoring.yml
+echo "[Masters]" >> /etc/ansible/hosts
+echo "[Workers]" >> /etc/ansible/hosts
+hostnamectl set-hostname Ansible
 EOF
 
   tags = {

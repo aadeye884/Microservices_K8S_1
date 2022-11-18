@@ -13,7 +13,7 @@ variable "port_all_to" {
   description = "this port allows http access"
 }
 
-variable "sg_name" {
+variable "sg_name1" {
   default     = ""
 }
 

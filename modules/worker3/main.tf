@@ -1,9 +1,9 @@
-#Create Worker2 node
-resource "aws_instance" "Worker2_node" {
+#Create Worker3 node
+resource "aws_instance" "Worker3_node" {
   ami                    = var.ami
   instance_type          = var.instance_type
-  subnet_id              = var.subnet_id2
-  availability_zone      = var.az1b
+  subnet_id              = var.subnet_id3
+  availability_zone      = var.az1c
   key_name               = var.key_name
   vpc_security_group_ids = [var.vpc_security_group_ids]
   associate_public_ip_address = var.associate_public_ip_address
@@ -39,10 +39,10 @@ sudo apt-get update
 sudo apt-get update
 sudo apt-get install -y kubelet=1.20.1-00 kubeadm=1.20.1-00 kubectl=1.20.1-00
 sudo apt-mark hold kubelet kubeadm kubectl
-sudo hostnamectl set-hostname worker2
+sudo hostnamectl set-hostname worker3
   EOF
 
   tags = {
-      Name = "Worker2_node"
+      Name = "Worker3_node"
   }
 }

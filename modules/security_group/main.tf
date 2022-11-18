@@ -1,6 +1,6 @@
 # Create Kubernetes Security Group
 resource "aws_security_group" "allSG" {
-  name        = var.sg_name
+  name        = var.sg_name1
   description = "Allow TLS inbound traffic"
   vpc_id      = var.vpc_id
 
@@ -20,7 +20,7 @@ resource "aws_security_group" "allSG" {
   }
 
   tags = {
-    Name = var.sg_name
+    Name = var.sg_name1 
   }
 }
 

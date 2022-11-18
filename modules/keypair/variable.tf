@@ -1,5 +1,5 @@
 variable "path_to_public_key" {
-  default     = "~/keypairs/USTeam1Keypair.pub"
+  default     = "~/Keypairs/USTeam1Keypair.pub"
   description = "This is the path to our public key"
 }
 

@@ -1,0 +1,12 @@
+---
+ - hosts: Master
+   become: true
+
+   tasks:
+    - name: Clone Application Repo
+      shell: git clone https://github.com/microservices-demo/microservices-demo.git
+
+    - name: Deploying Socks-Shop
+      shell: kubectl create -f complete-demo.yaml
+      args:
+        chdir: microservices-demo/deploy/kubernetes

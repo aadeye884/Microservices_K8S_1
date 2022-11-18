@@ -1,2 +1,1 @@
-# SockShop_Microservices_KB
-Sock Shop Microservices Kubernetes Project
+# Sock-Shop-Microservices-Kubernetes-Project-US-Team-1-18JULY

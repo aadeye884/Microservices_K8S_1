@@ -11,11 +11,18 @@ variable "PUB_SN2_cidr" {
     default     = "10.0.1.0/24"
     description = "PUB_SN2"
 }
+variable "PUB_SN3_cidr" {
+    default     = "10.0.2.0/24"
+    description = "PUB_SN3"
+}
 variable "az2a"{
     default = "us-east-1a"
 }
 variable "az2b"{
     default = "us-east-1b"
+}
+variable "az2c"{
+    default = "us-east-1c"
 }
 variable "vpc_name" {
     default = "VPC"
@@ -25,6 +32,9 @@ variable "pub_subn1" {
 }
 variable "pub_subn2" {
     default = "PUB_SN2"
+}
+variable "pub_subn3" {
+    default = "PUB_SN3"
 }
 variable "igw_name" {
     default = "IGW"

@@ -1,12 +1,12 @@
-#Create Worker2 node
-resource "aws_instance" "Worker2_node" {
-  ami                    = var.ami
-  instance_type          = var.instance_type
-  subnet_id              = var.subnet_id2
-  availability_zone      = var.az1b
-  key_name               = var.key_name
-  vpc_security_group_ids = [var.vpc_security_group_ids]
+# Create Master Server  (using Ubuntu for ami and t3.medium for instance type)
+resource "aws_instance" "UST1_Master_node2" {
+  ami                         = var.ami
+  instance_type               = var.instance_type
+  vpc_security_group_ids      = [var.vpc_security_group_ids]
   associate_public_ip_address = var.associate_public_ip_address
+  subnet_id                   = var.subnet_id2
+  availability_zone           = var.az2
+  key_name                    = var.key_name
   user_data = <<-EOF
 #!/bin/bash
 sudo apt update -y
@@ -39,10 +39,9 @@ sudo apt-get update
 sudo apt-get update
 sudo apt-get install -y kubelet=1.20.1-00 kubeadm=1.20.1-00 kubectl=1.20.1-00
 sudo apt-mark hold kubelet kubeadm kubectl
-sudo hostnamectl set-hostname worker2
+sudo hostnamectl set-hostname master2
   EOF
-
   tags = {
-      Name = "Worker2_node"
+    Name = "UST1_Master_node2"
   }
 }

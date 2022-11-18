@@ -26,6 +26,15 @@ resource "aws_subnet" "PUB_SN2" {
   }
 }
 
+# create public subnet 3
+resource "aws_subnet" "PUB_SN3" {
+  vpc_id            = aws_vpc.VPC.id
+  cidr_block        = var.PUB_SN3_cidr
+  availability_zone = var.az2c
+  tags = {
+    Name = var.pub_subn3
+  }
+}
 
 # create an IGW
 resource "aws_internet_gateway" "IGW" {
@@ -35,7 +44,6 @@ resource "aws_internet_gateway" "IGW" {
     Name = var.igw_name
   }
 }
-
 
 # create a public route table
 resource "aws_route_table" "RT_Pub_SN" {
@@ -59,5 +67,11 @@ resource "aws_route_table_association" "Public_RT_ass_01" {
 # association of route table to Public SN 2
 resource "aws_route_table_association" "Public_RT_ass_02" {
   subnet_id      = aws_subnet.PUB_SN2.id
+  route_table_id = aws_route_table.RT_Pub_SN.id
+}
+
+# association of route table to Public SN 3
+resource "aws_route_table_association" "Public_RT_ass_03" {
+  subnet_id      = aws_subnet.PUB_SN3.id
   route_table_id = aws_route_table.RT_Pub_SN.id
 }

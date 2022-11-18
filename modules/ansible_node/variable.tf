@@ -1,5 +1,5 @@
-variable "instance_type_t2" {
-    default = "t2.medium"
+variable "instance_type" {
+    default = ""
 }
 
 variable "ami" {
@@ -17,11 +17,25 @@ variable "availability_zone" {
 variable "key_name" {
     default = ""
 }
-
 variable "vpc_security_group_ids" {
     default = ""
 }
-
 variable "associate_public_ip_address" {
   default = true
 }
+variable "join-gen_yml" {
+  default = "~/allmyproject/Sock-Shop-Microservices-Kubernetes-Project-US-Team-1-18JULY/modules/ansible_node/join-gen.yml"
+}
+variable "join_yml" {
+  default = "~/allmyproject/Sock-Shop-Microservices-Kubernetes-Project-US-Team-1-18JULY/modules/ansible_node/join.yml"
+}
+variable "deployment_yml" {
+  default = "~/allmyproject/Sock-Shop-Microservices-Kubernetes-Project-US-Team-1-18JULY/modules/ansible_node/deployment.yml"
+}
+variable "monitoring_yml" {
+  default = "~/allmyproject/Sock-Shop-Microservices-Kubernetes-Project-US-Team-1-18JULY/modules/ansible_node/monitoring.yml"
+}
+variable "keypair" {
+  default = "~/Downloads/keypairs/USTeam1Keypair"
+}
+
